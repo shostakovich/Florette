@@ -1,6 +1,6 @@
 = Florette
 
-Description goes here.
+A language that compiles into PHP
 
 == Contributing to Florette
  
