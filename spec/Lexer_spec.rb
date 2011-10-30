@@ -12,7 +12,8 @@ describe "Lexer" do
   end
 
   it "can parse identifiers" do
-    lexer.tokenize("echo 1").should eql([[:IDENTIFIER, "echo"], [:NUMBER, 1]])
+    lexer.tokenize("pass").should eql([[:IDENTIFIER, "pass"]])
+    lexer.tokenize("false").should eql([[:IDENTIFIER, "false"]])
   end
 
   it "can parse a number" do

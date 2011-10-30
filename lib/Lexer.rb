@@ -5,11 +5,11 @@ class Lexer
 
   def tokenize(code)
     @tokens = []
-    code.each_line {|l| parse_line(l)}
+    code.each_line {|l| tokenize_line(l)}
     @tokens
   end
 
-  def parse_line(line)
+  def tokenize_line(line)
     tokenize_newlines(line)
     tokenize_indentation(line)
     line.split(/ /).each{|chunk| tokenize_chunk(chunk)}
