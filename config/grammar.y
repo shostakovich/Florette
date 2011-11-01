@@ -45,7 +45,7 @@ rule
 
   # A function call
   Call:
-    IDENTIFIER                    { result = CallNode.new(val[0]) }
+    IDENTIFIER                    { result = CallNode.new(val[0])}
   ;
 
   If:
