@@ -1,10 +1,10 @@
 require "rspec"
+require "Nodes"
 
 describe "Nodes" do
 
   it "should expose nodes inside" do
-
-    #To change this template use File | Settings | File Templates.
-    true.should == false
+    nodes = Nodes.new "nodes"
+    nodes.nodes.should eql("nodes")
   end
 end
