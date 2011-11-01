@@ -26,11 +26,11 @@ class Lexer
 
     if leading_whitespace = /^([ ]+)/.match(line)
       line_indentation = leading_whitespace.length
-      @tokens << [:INDENT, line_indentation - @prev_indentation] if line_indentation > @prev_indentation
+      @tokens << [:INDENT, line_indentation] if line_indentation > @prev_indentation
       @prev_indentation = line_indentation
     end
 
-    @tokens << [:DEDENT, @prev_indentation - line_indentation] if line_indentation < @prev_indentation
+    @tokens << [:DEDENT, line_indentation] if line_indentation < @prev_indentation
   end
 
   def tokenize_chunk(chunk)

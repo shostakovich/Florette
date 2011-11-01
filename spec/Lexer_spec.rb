@@ -43,6 +43,6 @@ describe "Lexer" do
   1
 1'
     lexer.tokenize(code).should eql(
-       [[:IF, "if"],[:NUMBER, 1],[:INDENT, 2],[:NUMBER, 1],[:DEDENT, 2], [:NUMBER, 1]])
+       [[:IF, "if"],[:NUMBER, 1],[:INDENT, 2],[:NUMBER, 1],[:DEDENT, 0], [:NUMBER, 1]])
   end
 end
