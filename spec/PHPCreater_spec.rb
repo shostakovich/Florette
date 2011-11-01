@@ -2,6 +2,7 @@ require "rspec"
 require "PHPCreater"
 require "Nodes"
 require "CallNode"
+require "LiteralNode"
 
 describe "PHPCreater" do
   it "should be initialized with nodes" do
@@ -35,6 +36,19 @@ describe "PHPCreater" do
        creater = PHPCreater.new(nodes)
        creater.create.should match /^exit\(\);$/
        creater.create.should match /^phpinfo\(\);$/
+    end
+
+    it "should create an if statement" do
+      condition = LiteralNode.new(1)
+      body = Nodes.new([CallNode.new("exit")])
+      block = Nodes.new([body])
+      nodes = Nodes.new [IfNode.new(condition, block)]
+
+      creater = PHPCreater.new(nodes)
+      creater.create.should match /^if \(1\)\n{/
+      creater.create.should match /^exit\(\);$/
+      creater.create.should match /^}$/
+
     end
   end
 end

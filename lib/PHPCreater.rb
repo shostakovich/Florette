@@ -6,19 +6,31 @@ class PHPCreater
   def create
     @code = ""
     open_php_tag
-    process_nodes
+    process_block(@nodes)
     close_php_tag
     @code
   end
 
-  def process_nodes
-    @nodes.nodes.each do |node|
+  private
+
+  def open_php_tag
+    @code += "<?php\n"
+  end
+
+  def process_block(block)
+    block.nodes.each do |node|
+      if node.instance_of? IfNode
+        return process_if_node(node)
+      end
+
       @code += "\n#{node.identifier}();"
     end
   end
 
-  def open_php_tag
-    @code += "<?php\n"
+  def process_if_node(if_node)
+    @code += "if (#{if_node.condition.value})\n{"
+    process_block(if_node.block.nodes[0])
+    @code += "\n}"
   end
 
   def close_php_tag
