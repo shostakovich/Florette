@@ -26,7 +26,6 @@ describe "Lexer" do
 
   it "can parse newlines" do
     lexer.tokenize("1
-
 1").should eql([[:NUMBER, 1],[:NEWLINE, "\n"],[:NUMBER, 1]])
   end
 
@@ -43,6 +42,6 @@ describe "Lexer" do
   1
 1'
     lexer.tokenize(code).should eql(
-       [[:IF, "if"],[:NUMBER, 1],[:INDENT, 2],[:NUMBER, 1],[:DEDENT, 0], [:NUMBER, 1]])
+       [[:IF, "if"],[:NUMBER, 1],[:INDENT, 2],[:NUMBER, 1],[:DEDENT, 0], [:NEWLINE, "\n"], [:NUMBER, 1]])
   end
 end

@@ -10,27 +10,34 @@ class Lexer
   end
 
   def tokenize_line(line)
-    tokenize_newlines(line)
     tokenize_indentation(line)
     line.split(/ /).each{|chunk| tokenize_chunk(chunk)}
+    tokenize_newlines(line)
   end
 
   def tokenize_newlines(line)
-    if /^[\n]+/.match(line)
+    if /[\n]+/.match(line)
       @tokens << [:NEWLINE, "\n"]
     end
   end
 
   def tokenize_indentation(line)
-    line_indentation = 0
-
     if leading_whitespace = /^([ ]+)/.match(line)
       line_indentation = leading_whitespace.length
-      @tokens << [:INDENT, line_indentation] if line_indentation > @prev_indentation
-      @prev_indentation = line_indentation
+    else
+      line_indentation = 0
     end
 
-    @tokens << [:DEDENT, line_indentation] if line_indentation < @prev_indentation
+    if line_indentation != @prev_indentation
+      @tokens.pop
+    end
+
+    @tokens << [:INDENT, line_indentation] if line_indentation > @prev_indentation
+    if line_indentation < @prev_indentation
+      @tokens << [:DEDENT, line_indentation]
+      @tokens << [:NEWLINE, "\n"]
+    end
+    @prev_indentation = line_indentation
   end
 
   def tokenize_chunk(chunk)
